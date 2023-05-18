@@ -74,7 +74,7 @@ func run() error {
 			return errors.New("repo argument not found")
 		}
 
-		args = append(args, "-c", fmt.Sprintf("user.name='%s'", data["name"]), "-c", fmt.Sprintf("user.email='%s'", data["email"]), "-c", fmt.Sprintf("core.sshCommand=ssh -i %s", data["cert"]))
+		args = append(args, "-c", fmt.Sprintf("user.name=%s", data["name"]), "-c", fmt.Sprintf("user.email=%s", data["email"]), "-c", fmt.Sprintf("core.sshCommand=ssh -i %s", data["cert"]))
 
 		cmd := exec.Command("git", args...)
 		cmd.Stdout = os.Stdout
