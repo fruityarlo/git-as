@@ -1,0 +1,53 @@
+git-as is a custom git command that greatly simplifies the usage of
+multiple GitHub accounts. All entries are stored in the git-as sections in your
+per-user .gitconfig file.
+
+General usage: git as <id> [command] [args...]
+               git as <command>
+
+Here are the specific commands for the various use cases:
+
+    git as <id>   CHANGE YOUR GIT USER for the current directory with <id> being
+                  the identifier used when adding the entry. 'default' (without
+                  the quotes) can also be used to get rid of the local git-as
+                  entries and use your global defaults.
+
+    git as <id> clone <repo> [options]
+                  CLONE A REPO AS a specific user with <id> being the identifier
+                  used when adding the entry and <repo> being the git repo to
+                  clone. All [options] are directly passed on to git-clone.
+
+    git as version
+                  SHOW VERSION
+
+    git as help   SHOW HELP
+
+You have to set up all users you want to use with git-as before you can use
+this tool. Setup is done in your global .gitconfig file, probably at
+~/.gitconfig. You can add a user in two ways:
+
+    1. EDIT THE .gitconfig FILE DIRECTLY
+       Add a section per user with all required info, e.g.
+
+       [git-as "johnd"]
+               name: John Doe
+               email: jdoe@noreply.example.com
+               cert: ~/.ssh/id_ed25519_jdoe
+
+       You can of course add as many section as you like. Keep in mind that the
+       name in quotes (here: johnd) corresponds to the <id> argument. If you
+       copy the example from above, make sure to fix the indentation.
+
+    2. RUN SOME git COMMANDS
+       You can use git itself to add new users with 3 commands, e.g.
+
+           git config --global git-as.johnd.name "John Doe"
+           git config --global git-as.johnd.email jdoe@noreply.example.com
+           git config --global git-as.johnd.cert ~/.ssh/id_ed25519_jdoe
+
+       You have to run all 3 commands for every user that you want to add.
+       Remember: the string after git-as. (here: johnd) corresponds to the <id>
+       argument.
+
+In both cases, you have to generate the SSH certificate yourself. An you can mix
+and match using commands or editing the config file directly, of course.
